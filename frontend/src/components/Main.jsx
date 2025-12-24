@@ -1,9 +1,12 @@
 import React from "react";
 import "../assets/css/main.css";
 import Button from "./Button";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Main = () => {
 	return (
+
 		<>
 			<div className="container">
 				<div className="p-5 text-center bg-light-dark mt-5">
@@ -24,6 +27,9 @@ const Main = () => {
                     <Button class="btn btn-outline-primary mt-3" text = "Shop now" />
 				</div>
 			</div>
+			<Footer />
+
+			
       
 		</>
 	);
