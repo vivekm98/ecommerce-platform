@@ -20,7 +20,11 @@ const Header = () => {
         <div className='d-flex gap-2'>
           {isLoggedIn ? (
             <>
-              <button class='btn btn-danger'onClick={logout}>Logout</button>
+            <input className='form-control' type="search" />
+            <button className='btn btn-info'>Search</button>
+              <button className='btn btn-info'>Cart </button>
+              <button className='btn btn-info'>Orders</button>
+              <button className='btn btn-danger'onClick={logout}>Logout</button>
             </>
           ):(
               <>
