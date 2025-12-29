@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
-import axiosInstance from "../axiosInstance";
+import axiosInstance from "../axiosinstance";
+import Adds from "./Adds";
+import Products from "./Products";
+import Category from "./Category";
+
 const Dashboard = () => {
+	
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -13,7 +18,16 @@ const Dashboard = () => {
 		};
     fetchData();
 	},[]);
-	return <div>Dashboard</div>;
+
+
+	return (
+		<>
+		 <Adds />
+		 <Category />
+		</>
+	)
+		
+	       
 };
 
 export default Dashboard;

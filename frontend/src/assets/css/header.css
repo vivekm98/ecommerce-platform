@@ -1,7 +1,7 @@
-.navbar-brand{
-    color: yellow;
-    margin-left: 1cm;
+.navbar-brand {
+  letter-spacing: 1px;
 }
-.navbar{
-    background-color: 	#10898d;
+
+input::placeholder {
+  font-size: 0.85rem;
 }

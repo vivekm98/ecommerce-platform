@@ -11,16 +11,17 @@ import AuthProvider from "./components/AuthProvider";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 function App() {
+	const [search,setSearch] = useState('')
 	return (
 		<>
 			<AuthProvider>
 				<BrowserRouter>
-					<Header />
+					<Header search={search} setSearch={setSearch} />
 					<Routes>
 						<Route path="/" element={<Main />} />
 						<Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 						<Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-						<Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+						<Route path="/dashboard" element={<PrivateRoute><Dashboard search={search} /></PrivateRoute>} />
 					</Routes>
 				</BrowserRouter>
 			</AuthProvider>

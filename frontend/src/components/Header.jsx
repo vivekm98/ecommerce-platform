@@ -1,43 +1,60 @@
-import React, { useContext } from 'react'
+import React, { useContext } from "react";
 import "../assets/css/header.css";
-import Button from './Button';
-import { Link,useNavigate } from 'react-router-dom';
-import { AuthContext } from './AuthProvider';
-const Header = () => {
-  const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext)
-  const navigate = useNavigate()
-  const logout =() =>{
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    setIsLoggedIn(false)
-    navigate('/')
-    
-  }
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthProvider";
+
+const Header = ({ search, setSearch }) => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
   return (
-    <>
-      <nav className="navbar navbar-dark container-fluid p-3">
-        <Link href="" className='navbar-brand fw-bold' to="/">E-Market</Link>
-        <div className='d-flex gap-2'>
-          {isLoggedIn ? (
-            <>
-            <input className='form-control' type="search" />
-            <button className='btn btn-info'>Search</button>
-              <button className='btn btn-info'>Cart </button>
-              <button className='btn btn-info'>Orders</button>
-              <button className='btn btn-danger'onClick={logout}>Logout</button>
-            </>
-          ):(
-              <>
-                <Button text="Login" class='btn btn-outline-light text-dark' url="/login" />
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      {/* Brand */}
+      <Link className="navbar-brand fw-bold fs-4 text-warning" to="/">
+        E-Market
+      </Link>
 
-               <Button text="Register"class="btn btn-outline-light" url="/register" />
-              </>
-          )}
-            
-        </div>
-      </nav>
-    </>
-  )
-}
+      {/* Right Section */}
+      <div className="ms-auto d-flex align-items-center gap-2">
+        {isLoggedIn ? (
+          <>
+            {/* Search */}
+          
 
-export default Header
+            {/* Actions */}
+            <Link to="/cart" className="btn btn-outline-light btn-sm">
+              🛒 Cart
+            </Link>
+
+            <Link to="/orders" className="btn btn-outline-light btn-sm">
+              📦 Orders
+            </Link>
+
+            <button onClick={logout} className="btn btn-danger btn-sm">
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="btn btn-outline-light btn-sm">
+              Login
+            </Link>
+
+            <Link to="/register" className="btn btn-warning btn-sm text-dark">
+              Register
+            </Link>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Header;
