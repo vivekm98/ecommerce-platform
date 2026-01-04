@@ -9,6 +9,7 @@ urlpatterns = [
     path('token/',TokenObtainPairView.as_view(),name="token"),
     path('token/refresh/',TokenRefreshView.as_view(),name="token_refresh"),
     path('protected-view/',userViews.ProtectedView.as_view()),
-    path('',include('products.urls'))
+    path('',include('products.urls')),
+    path('',include('cart.urls')),
 
 ]

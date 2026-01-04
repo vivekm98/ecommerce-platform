@@ -44,7 +44,7 @@ const Login = () => {
                      <form onSubmit={login} >
                          <input type="text" className='form-control mt-3' required placeholder='Username'value={username} onChange={(e) => setUserName(e.target.value)} />
                         
-                         <input type="text" className='form-control mt-3' required placeholder='Set Password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                         <input type="text" className='form-control mt-3' required placeholder='Password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
                          {error && (
                           <div className='text-danger text-center mt-3'>{error}</div>
                          )}
