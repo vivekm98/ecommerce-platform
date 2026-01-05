@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosinstance";
 
 const Cart = () => {
-  const [cartItem, setCartItem] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchCart = async () => {
     setLoading(true);
     try {
       const response = await axiosInstance.get("/cart/items/");
-      setCartItem(response.data);
+      setCartItems(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Cart fetch error", error);
     } finally {
       setLoading(false);
     }
@@ -21,21 +22,62 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  // 🔹 Update quantity
-  const updateQuantity = async (itemId, newQty) => {
-    if (newQty < 1) return;
+  /* ---------------- Select Item ---------------- */
+  const toggleSelect = (id) => {
+    setSelectedItems((prev) =>
+      prev.includes(id)
+        ? prev.filter((itemId) => itemId !== id)
+        : [...prev, id]
+    );
+  };
+
+  /* ---------------- Quantity Update ---------------- */
+  const updateQuantity = async (id, qty) => {
+    if (qty < 1) return;
 
     try {
-      await axiosInstance.patch(`/cart/items/${itemId}/`, {
-        quantity: newQty,
+      await axiosInstance.patch(`/cart/items/${id}/`, {
+        quantity: qty,
       });
-      fetchCart(); 
-      console.log("success ok")
-      // refresh cart
+      fetchCart();
     } catch (error) {
       console.error("Quantity update failed", error);
     }
   };
+
+  /* ---------------- Remove Item ---------------- */
+  const removeItem = async (id) => {
+    try {
+      await axiosInstance.delete(`/cart/items/${id}/`);
+      setSelectedItems((prev) => prev.filter((item) => item !== id));
+      fetchCart();
+    } catch (error) {
+      console.error("Remove item failed", error);
+    }
+  };
+
+  /* ---------------- Place Order (Selected Only) ---------------- */
+  const placeOrder = async () => {
+    try {
+      await axiosInstance.post("/orders/create/", {
+        cart_items: selectedItems,
+      });
+
+      alert("Order placed successfully");
+      setSelectedItems([]);
+      fetchCart();
+    } catch (error) {
+      console.error("Order failed", error);
+      alert("Order failed");
+    }
+  };
+
+  const selectedTotal = cartItems
+    .filter((item) => selectedItems.includes(item.id))
+    .reduce(
+      (sum, item) => sum + item.product_price * item.quantity,
+      0
+    );
 
   if (loading) {
     return <p className="text-center mt-4">Loading cart...</p>;
@@ -45,64 +87,88 @@ const Cart = () => {
     <div className="container mt-4">
       <h4 className="mb-3">My Cart</h4>
 
-      {cartItem.length === 0 ? (
+      {cartItems.length === 0 ? (
         <p>Cart is empty</p>
       ) : (
-        cartItem.map((item) => (
-          <div
-            key={item.id}
-            className="border rounded p-3 mb-2 d-flex justify-content-between align-items-center"
-          >
-            {/* Left */}
-            <div className="d-flex align-items-center gap-3">
-              <img
-                src={item.product_image}
-                alt={item.product_name}
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  objectFit: "cover",
-                  borderRadius: "6px",
-                }}
-              />
+        <>
+          {cartItems.map((item) => (
+            <div
+              key={item.id}
+              className="border rounded p-3 mb-2 d-flex justify-content-between align-items-center"
+            >
+              {/* Left */}
+              <div className="d-flex align-items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={selectedItems.includes(item.id)}
+                  onChange={() => toggleSelect(item.id)}
+                />
 
-              <div>
-                <strong>{item.product_name}</strong>
-                <div className="text-muted small">
-                  ₹{item.product_price}
-                </div>
+                <img
+                  src={item.product_image}
+                  alt={item.product_name}
+                  style={{ width: "60px", height: "60px" }}
+                />
 
-                {/* Quantity buttons */}
-                <div className="d-flex align-items-center gap-2 mt-1">
-                  <button
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() =>
-                      updateQuantity(item.id, item.quantity - 1)
-                    }
-                  >
-                    −
-                  </button>
+                <div>
+                  <strong>{item.product_name}</strong>
+                  <div className="text-muted small">
+                    ₹{item.product_price}
+                  </div>
 
-                  <span>{item.quantity}</span>
+                  <div className="d-flex align-items-center gap-2 mt-1">
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={() =>
+                        updateQuantity(item.id, item.quantity - 1)
+                      }
+                    >
+                      −
+                    </button>
 
-                  <button
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() =>
-                      updateQuantity(item.id, item.quantity + 1)
-                    }
-                  >
-                    +
-                  </button>
+                    <span>{item.quantity}</span>
+
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={() =>
+                        updateQuantity(item.id, item.quantity + 1)
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Right */}
-            <div className="fw-bold">
-              ₹{item.product_price * item.quantity}
+              {/* Right */}
+              <div className="text-end">
+                <strong>
+                  ₹{item.product_price * item.quantity}
+                </strong>
+                <br />
+                <button
+                  className="btn btn-sm btn-danger mt-2"
+                  onClick={() => removeItem(item.id)}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
+          ))}
+
+          {/* Footer */}
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <h5>Selected Total: ₹{selectedTotal}</h5>
+
+            <button
+              className="btn btn-success"
+              disabled={selectedItems.length === 0}
+              onClick={placeOrder}
+            >
+              Order Selected Items
+            </button>
           </div>
-        ))
+        </>
       )}
     </div>
   );

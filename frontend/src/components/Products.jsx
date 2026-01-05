@@ -4,6 +4,19 @@ import axiosInstance from "../axiosinstance";
 const Products = ({category,subCategory}) => {
   const [products, setProducts] = useState([]);
 
+  const addToCart = async (productId) =>{
+    try{
+      await axiosInstance.post("/cart/items/add/",{
+        product: productId,
+        quantity: 1,
+      });
+      alert("Added to cart")
+    }catch(error){
+      console.error("Add to cart failed",error)
+      alert("please login to add items to cart")
+    }
+  }
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -54,7 +67,7 @@ const Products = ({category,subCategory}) => {
                     {product.description?.length > 80 && "..."}
                   </p>
 
-                  <button className="btn btn-warning mt-auto">
+                  <button className="btn btn-warning mt-auto" onClick={()=> addToCart(product.id)}>
                     Add to Cart
                   </button>
                 </div>
