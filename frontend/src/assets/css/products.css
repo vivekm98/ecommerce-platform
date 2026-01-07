@@ -1,0 +1,41 @@
+/* Product card */
+.card {
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Product image */
+.card-img-top {
+  background-color: #f8fafc;
+  padding: 10px;
+}
+
+/* Product title */
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Price */
+.card-body p.fw-bold {
+  color: #0f766e !important; /* match navbar */
+}
+
+/* Add to cart button */
+.card-body .btn-warning {
+  background-color: #076165;
+  border: none;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.card-body .btn-warning:hover {
+  background-color: #054d50;
+}

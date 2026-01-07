@@ -11,5 +11,6 @@ urlpatterns = [
     path('protected-view/',userViews.ProtectedView.as_view()),
     path('',include('products.urls')),
     path('',include('cart.urls')),
+    path('',include('order.urls')),
 
 ]

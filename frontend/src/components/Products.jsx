@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosinstance";
+import "../assets/css/products.css";
+import "../assets/css/products.css";
 
 const Products = ({category,subCategory}) => {
   const [products, setProducts] = useState([]);
