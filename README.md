@@ -136,11 +136,6 @@ My Orders	/api/v1/orders/
 ![Order Form](screenshots/login.png)
 
 
-
-
-
-(Add screenshots here for better impact on GitHub & LinkedIn)
-
 🎯 Future Improvements
 
 Online payment integration
