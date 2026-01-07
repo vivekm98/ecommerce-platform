@@ -132,6 +132,9 @@ My Orders	/api/v1/orders/
 ### 🛒 Cart Page
 ![Cart Page](screenshots/cart.png)
 
+### 📝 Order Form
+![Order Form](screenshots/order_form.png)
+
 ### 📝 Login Form
 ![Order Form](screenshots/login.png)
 
