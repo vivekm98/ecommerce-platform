@@ -126,13 +126,13 @@ My Orders	/api/v1/orders/
 ### 🏠 Home Page
 ![Home Page](screenshots/dashboard.png)
 
-### 🛍️ Products Page
+### 🛍️ category Page
 ![Products Page](screenshots/category.png)
 
 ### 🛒 Cart Page
 ![Cart Page](screenshots/cart.png)
 
-### 📝 Order Form
+### 📝 Login Form
 ![Order Form](screenshots/login.png)
 
 
