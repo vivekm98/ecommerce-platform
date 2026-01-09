@@ -73,22 +73,6 @@ Axios
 
 Bootstrap 5
 
-📁 Project Structure
-ecommerce/
-│
-├── backend/
-│   ├── products/
-│   ├── cart/
-│   ├── orders/
-│   ├── users/
-│   └── ecommerce/
-│
-├── frontend/
-│   ├── components/
-│   ├── assets/
-│   └── App.jsx
-│
-└── README.md
 
 🔑 API Endpoints (Sample)
 Authentication
