@@ -1,24 +1,24 @@
-🛒 E-Market – Full Stack E-Commerce Application
+🛒 E-commerce Platform (Django + React)
 
-A full-stack E-Commerce web application built using Django REST Framework for the backend and React + Bootstrap for the frontend.
-The platform supports user authentication, product browsing, cart management, and order placement.
+A full-stack E-commerce web application built using Django, Django REST Framework, and React.
+The platform supports product browsing, category & sub-category filtering, cart management, and order placement with JWT authentication.
 
-✨ Features
-🔐 Authentication
+🔥 Features
+👤 Authentication
 
-User Registration & Login
+JWT-based authentication (Login / Register)
 
-JWT Authentication (Access & Refresh Tokens)
+Protected routes for cart and orders
 
-Protected Routes (Frontend & Backend)
+User-specific cart and order history
 
-🛍️ Products
+📦 Products & Categories
 
-Category & Sub-Category based product listing
+Product listing with images
 
-Product images and pricing
+Category & Sub-category filtering
 
-Responsive product cards
+Dynamic product loading from backend APIs
 
 🛒 Cart
 
@@ -26,40 +26,42 @@ Add products to cart
 
 Increase / decrease quantity
 
-Prevent quantity greater than stock
+Prevent quantity exceeding stock
 
 Remove items from cart
 
-Select specific items for ordering
+Select specific items for checkout
 
-📦 Orders
+📑 Orders
 
 Place orders for selected cart items only
 
-Order form with delivery details
+Order form with delivery address details
 
 View order history
 
-Order detail page
+Order details page with items and status
 
-🎨 UI / UX
+🎨 UI
 
-Responsive design using Bootstrap
+Responsive UI using Bootstrap
 
 Sticky navigation bar
 
-Clean and professional color theme
+Clean and professional design
 
-🧑‍💻 Tech Stack
+🧰 Tech Stack
 Backend
+
+Python
 
 Django
 
 Django REST Framework
 
-JWT Authentication
+JWT Authentication (SimpleJWT)
 
-SQLite (can be replaced with PostgreSQL)
+SQLite (can be switched to PostgreSQL)
 
 Frontend
 
@@ -71,24 +73,61 @@ Axios
 
 Bootstrap 5
 
-📂 Project Structure (Simplified)
-backend/
- ├── products/
- ├── cart/
- ├── orders/
- ├── users/
- ├── requirements.txt
- └── manage.py
+📁 Project Structure
+ecommerce/
+│
+├── backend/
+│   ├── products/
+│   ├── cart/
+│   ├── orders/
+│   ├── users/
+│   └── ecommerce/
+│
+├── frontend/
+│   ├── components/
+│   ├── assets/
+│   └── App.jsx
+│
+└── README.md
 
-frontend/
- ├── components/
- ├── assets/
- ├── axiosinstance.js
- └── App.jsx
+🔑 API Endpoints (Sample)
+Authentication
 
-⚙️ Installation & Setup
-🔹 Backend Setup
-git clone https://github.com/your-username/your-repo-name.git
+POST /api/v1/register/
+
+POST /api/v1/token/
+
+POST /api/v1/token/refresh/
+
+Products
+
+GET /api/v1/products/
+
+GET /api/v1/category/
+
+GET /api/v1/sub_category/
+
+Cart
+
+GET /api/v1/cart/items/
+
+POST /api/v1/cart/items/add/
+
+PATCH /api/v1/cart/items/<id>/
+
+DELETE /api/v1/cart/items/<id>/
+
+Orders
+
+POST /api/v1/place-order/
+
+GET /api/v1/orders/
+
+GET /api/v1/orders/<id>/
+
+⚙️ Setup Instructions
+Backend Setup
+git clone https://github.com/your-username/ecommerce-platform.git
 cd backend
 python -m venv env
 env\Scripts\activate   # Windows
@@ -97,29 +136,10 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 
-
-Backend runs on:
-
-http://127.0.0.1:8000/
-
-🔹 Frontend Setup
+Frontend Setup
 cd frontend
 npm install
 npm run dev
-
-
-Frontend runs on:
-
-http://localhost:5173/
-
-🔑 API Endpoints (Sample)
-Feature	Endpoint
-Login	/api/v1/token/
-Products	/api/v1/products/
-Cart Items	/api/v1/cart/items/
-Add to Cart	/api/v1/cart/items/add/
-Place Order	/api/v1/place-order/
-My Orders	/api/v1/orders/
 
 ## 📸 Screenshots
 
@@ -138,21 +158,25 @@ My Orders	/api/v1/orders/
 ### 📝 Login Form
 ![Order Form](screenshots/login.png)
 
+🚀 Future Enhancements
 
-🎯 Future Improvements
+Payment gateway integration
 
-Online payment integration
+Admin dashboard
 
-Product reviews & ratings
+Order status notifications
 
-Admin dashboard analytics
-
-Order cancellation & returns
+Wishlist functionality
 
 👨‍💻 Author
 
 Vivek More
-Python / Django Backend Developer
-🔗 GitHub: https://github.com/vivekm98
+Python | Django | DRF | React Developer
 
-🔗 Email: vivekmore45678@gmail.com 
+📌 LinkedIn: Add your LinkedIn link
+📌 GitHub: Add your GitHub repo link
+
+⭐ Support
+
+If you like this project, please ⭐ the repository!
+
